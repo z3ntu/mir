@@ -33,9 +33,11 @@ namespace
 std::string name_of_thread(std::thread& t)
 {
     static size_t const max_thread_name_size = 16;
-    char thread_name[max_thread_name_size];
+    char thread_name[max_thread_name_size] = "unknown";
 
+#ifdef HAVE_PTHREAD_GETNAME_NP
     pthread_getname_np(t.native_handle(), thread_name, sizeof thread_name);
+#endif
 
     return {thread_name};
 }
