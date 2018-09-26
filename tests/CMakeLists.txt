@@ -2,8 +2,7 @@
 if (DEFINED GTEST_VERSION)
   set(GTEST_VERSION_STR ${GTEST_VERSION})
   set(GTEST_DETECTION_METHOD "pkg-config")
-else()
-if (DEFINED ENV{GTEST_VERSION})
+elseif (DEFINED ENV{GTEST_VERSION})
   set(GTEST_VERSION_STR $ENV{GTEST_VERSION})
   set(GTEST_DETECTION_METHOD "GTEST_VERSION environment variable")
 else()
@@ -41,7 +40,6 @@ else()
     add_definitions(-DGTEST_VERSION_UNKNOWN)
     set(GTEST_DETECTION_METHOD "best guess, could not detect")
   endif()
-endif()
 endif()
 
 string(REGEX MATCH
