@@ -291,7 +291,9 @@ TEST_F(ThreadedDispatcherTest, sets_thread_names_appropriately)
     auto dispatchable = std::make_shared<mt::TestDispatchable>([dispatched, &dispatch_count]()
     {
         char buffer[80] = {0};
+#ifdef HAVE_PTHREAD_GETNAME_NP
         pthread_getname_np(pthread_self(), buffer, sizeof(buffer));
+#endif
         EXPECT_THAT(buffer, StartsWith(threadname_base));
 
         if (++dispatch_count == threadcount)
