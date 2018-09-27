@@ -29,11 +29,7 @@
 #include <vector>
 #include <unordered_map>
 #include <future>
-
-#ifndef __dev_t_defined
-#define __NEED_dev_t
-#include <bits/alltypes.h>
-#endif
+#include <sys/stat.h>
 
 struct libinput_device_group;
 struct libinput_device;
