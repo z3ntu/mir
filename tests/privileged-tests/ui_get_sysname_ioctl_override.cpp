@@ -43,6 +43,7 @@
 #include <string>
 #include <iostream>
 
+#include <linux/ioctl.h>
 #include <linux/uinput.h>
 #include <dlfcn.h>
 #include <dirent.h>
@@ -93,12 +94,12 @@ bool request_is_ui_get_sysname(unsigned long int request)
 
 }
 
-extern "C" int ioctl(int fd, unsigned long int request, ...) __THROW
+extern "C" int ioctl(int fd, int request, ...)
 {
     va_list vargs;
     va_start(vargs, request);
 
-    using ioctl_func = int(*)(int, unsigned long int, void*);
+    using ioctl_func = int(*)(int, int, void*);
     static ioctl_func const real_ioctl =
         reinterpret_cast<ioctl_func>(dlsym(RTLD_NEXT, "ioctl"));
 
